@@ -1,0 +1,68 @@
+---
+title: "emgprocessing"
+author: "SjurÃ˜fsteng"
+date: "26 januar 2018"
+output: html_document: default
+---
+
+```{r setup, include=FALSE}
+library(readxl); library(tidyverse); library(biosignalEMG)
+
+emg <- read_excel("./data/VLLtest3_20cyc.xlsx")
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r Change to EMG signal, echo=TRUE, message=TRUE}
+
+# Change emg to emg object
+emg.x <- emg$VLL # 
+plot(emg.x, channels = "all", samples = 0, type = "l",  timeunits = "seconds",
+     add = FALSE)
+
+length(emg.x)
+
+emgraw <- as.emg(emg.x, samplingrate = 1500, units = "mV", date.name = "VLL") # sampling rate 1500Hz to avoid signal loss
+is.emg(emgraw) # EMG object check
+plot(emgraw)
+emgraw #emg raw data
+
+
+# High pass filter
+x <- highpass(emgraw, cutoff = 20) # 20 Hz recommended for sport activities (maybe as much as 30 Hz)
+emghpass <- rectification(x)
+
+plot(x, main = "High pass filter")
+plot(emghpass, main = "High pass filter with rectification")
+emghpass #data with high pass filter and rectified
+
+## Full-wave rectified EMG
+emgrect <- rectification(emgraw, rtype = "fullwave", data.name = "VLL") 
+plot(emgrect, main = "Rectified EMG")
+emgrect # raw EMG data full-wave rectified
+
+#EMG Moving average
+emgrms <- envelope(emghpass, method = "MA", wsize = 100) # wsize; 100 ms, most common for all conditions
+plot(emgrms, main = "MA-envelope")
+emgrms
+
+#EMG RMS (preferred recommendation for smoothing)
+emgrms <- envelope(emgrect, method = "RMS", wsize = 100) # wsize; 100 ms, most common for all conditions
+plot(emgrms, main = "RMS-envelope")
+emgrms
+
+### Active or passive phase
+
+emgthr <- onoff_singlethres(emghpass, t = 90, data.name = "RMS")
+
+plot(emghpass, main = "High pass filter with rectification")
+plot(emgthr, type = "l", main = "Detected phases (single thresholding)")
+emgthr # detecting active/passive phases
+
+# Ensemble-averaged EMG
+avgemg <- eaemg(emghpass, runs = emgthr, what = 1, timenormalization = "mean", scalem = 1, empirical = TRUE, level = 0.95)
+avgemg
+plot(avgemg, lwd = 1.5, main = "Ensemble-averaged EMG")
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

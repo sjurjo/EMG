@@ -1,0 +1,72 @@
+---
+title: "Notesemg"
+author: "Sjur ofsteng"
+date: "30 januar 2018"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+```{r notes emg, include=TRUE, message=TRUE, echo=TRUE, background=TRUE}
+rd <- sample(x=1e6:1e7, size = 10, replace = FALSE)
+cat(rd, sep = "\n")
+```
+
+
+The power spectrum S x x ( f ) describes the distribution of power into frequency components composing that signal.[1] According to Fourier analysis any physical signal can be decomposed into a number of discrete frequencies, or a spectrum of frequencies over a continuous range. The statistical average of a certain signal or sort of signal (including noise) as analyzed in terms of its frequency content, is called its spectrum
+
+
+
+```{r High pass filter, include=TRUE, message=TRUE, echo=TRUE}
+```
+# Filter
+
+Band pass filtering at 80-500 Hz. Thereafter rectified, this is recommended to eliminate the
+
+- Filter for artifacts; there is recommended a high pass filter with a cut-off frequency between 10 and 20 Hz complimented by a low pass filter with a cut-off frequency of 500 Hz. This filter attempts to minimize the negative effects of the artifacts on the signal to noise ratio of the SEMG signal while retaining most of the SEMG signal.
+Recommendations for research studies deny narrower band setting than 10 to 500Hz. The target is to measure the EMG in the full band length.
+Evaluate strictly to apply additional digital filters, due to it may remove some of the EMG signal.
+The rectified RMS smoothed EMG signal without any additional filtering can be considered as a standard processing in kinesiological EMG (Konrad, 2005).
+
+- Rectification; converts all negative amplitudes to positive amplitudes. The main effect is that mean, peak, slope, area can be applied to the curve
+
+
+```{r Smoothing}
+```
+#Smoothing
+
+A raw EMG burst cannot be reproduced a second time by it precise shape, due to constantly change of which motor units are recruited within the diameter of available motor units and the arbitrary way the motor unit action potentials superpose. Therefore a filter is added to outline the mean trend of the signal development. The steep amplitude spikes are cut away and the signal receives a linear envelope.
+
+Moving average; bases on the defined time window, a certain amount of data are averaged using the sliding window technique. It gives information about the area under the selected signal epoch.
+Root Mean Square (RMS); A square root calculation reflects the mean power of the signal (RMS EMG), and is the preferred recommendation for the smoothing (Konrad, 2005).
+
+Important is to define a certain epoch (time window). Typically are fast movements (jumps) using a time duration of 20 ms to 500 ms for slow or static activities. Nevertheless, most conditions is between 50 to 100 ms. Importantly, a higher time window the higher is the risk of a phase shift in contractions with steep signal increase.
+
+```{r Normalization to a reference value}
+```
+# Normalization
+
+The basic idea of normalization is to "calibrate the micro volts value to a unique calibration unit with physiological relevance", "the percent of maximum innervation capacity".
+The main effect of all normalization methods is that the influence of the given detection condition is eliminated and data are re scaled from micro volt to percent of selected reference value. The amplitude normalization does not change the shape of EMG curves, only Y-axis scaling.
+Normalization, especially with MVC, reduce the individual signal detection condition and makes it easier to say something about the neuromuscular demand. MVC normalized data provide an understanding at what capacity level the muscles worked, how effective a training exercise reached the muscles or how much demand ergonomically a work task is require from a worker. Rescale to percent also makes it possible to compare EMG between individuals.
+
+
+- To describe the typical movement characteristic and neuromuscular input, not only one repetition should be obtained but several cycles >6 up to 30 (depending on difficulty and fatigue) and average them to the esable average curve.
+
+- The concept of time normalization; since there is difficult to repead EMG between repetitions a time normalization i suggested. During movement cycles each repetetion  within a given sequence is put into an equal amounts of periods and calculated the mean value of each period. The orginal milli second time scale is converted to percent of cycle ranging from 0- 100%. One data point at each 1% step.
+
+- Time normalization averaging; bases on the time normalization each repetition i averaged to a mean curve, the average curve or ensemble average curve. Usually the range of plus/minus one standard deviation (SD) is shown to visualize the variability between REPETITIONS. Large SD indicate less successful repeatability between repetitions or poor test standardization. Coefficient of variance can easily reach values of >50% which is not an abnormal finding for EMG gait patterns. This strategy of averaging is one of the most important EMG analyses because the ensemble average curves can easily reproduce if the overall testing standardization is arranged properly. Averaging has an additional smoothing effect on the EMG pattern (Konrad, s 38). It also allows group averaging and comparison between subjects and activities. The average EMG is the best mehod to describe the typical innervation input to an investigated movement or activity. A subjectiv (qualitative) inspection of the innervation behavior within the movement cycle is an important clinical diagnosis that does not require MVC normalization 
+
+- Averaging without time normalization; For analysis of quick movements within strech/shortening cycle (reactive contractions <180 ms) or reflex loops, any time normalization should be avoided because it may destroy the true time characteristic which can be significant in a few milli-seconds. A good alternative is to average a fixed duration period before and after a certain event.
+
+
+# EMG amplitude Parameters
+The EMG peak value is only meaningful for averaged curves because even for smoothed rectified EMG traces, it is still to variable. Average peak calculation is an alternative. The ten first highest peak values within an analysis period are averaged to the average peak. The amplitude mean value of a selected interval is probably the most important EMG-calculation, because it is less sensitive to duration differences of analysis intervals.
+
+
+
+
