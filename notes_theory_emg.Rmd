@@ -3,9 +3,9 @@ title: "Notesemg"
 author: "Sjur ofsteng"
 date: "30 januar 2018"
 output:
-  pdf_document: default
-  html_document: default
   word_document: default
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=TRUE}
@@ -65,8 +65,10 @@ Normalization, especially with MVC, reduce the individual signal detection condi
 
 
 # EMG amplitude Parameters
-The EMG peak value is only meaningful for averaged curves because even for smoothed rectified EMG traces, it is still to variable. Average peak calculation is an alternative. The ten first highest peak values within an analysis period are averaged to the average peak. The amplitude mean value of a selected interval is probably the most important EMG-calculation, because it is less sensitive to duration differences of analysis intervals.
+- The EMG peak value is only meaningful for averaged curves because even for smoothed rectified EMG traces, it is still to variable. Average peak calculation is an alternative. The ten first highest peak values within an analysis period are averaged to the average peak. The amplitude mean value of a selected interval is probably the most important EMG-calculation, because it is less sensitive to duration differences of analysis intervals.
+- The mean EMG value best describes the gross innervation input of a selected muscle for a given task and works best for comparison analysis.
+- IEMG (integrated EMG = area under the curve). 
 
-
-
+# EMG frequency Parameters
+The frequency contents of the EMG signal can be estimated by the Fast Fourier Transformations (FFT). EMG signal can be considered as a summation of sine waves with different frequency velocity. The FFT algorithm is a decomposition of the EMG signal. I.e if the most diminat large amplitude range sine wave is recognized at 80 Hz, this EMG has a lot of power at this frequency. Finally the Peak Power, the max.- value of the Total Power Spectrum curve can be used to describe frequency characteristics. Within applied EMG-frequency analysis the most important parameters are the mean and median frequency and their time domain changes in sustained contractions (fatigue studies).
 
