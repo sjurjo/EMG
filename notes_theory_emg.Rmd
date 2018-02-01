@@ -29,7 +29,7 @@ Band pass filtering at 80-500 Hz. Thereafter rectified, this is recommended to e
 
 - Filter for artifacts; there is recommended a high pass filter with a cut-off frequency between 10 and 20 Hz complimented by a low pass filter with a cut-off frequency of 500 Hz. This filter attempts to minimize the negative effects of the artifacts on the signal to noise ratio of the SEMG signal while retaining most of the SEMG signal.
 Recommendations for research studies deny narrower band setting than 10 to 500Hz. The target is to measure the EMG in the full band length.
-Evaluate strictly to apply additional digital filters, due to it may remove some of the EMG signal.
+Evaluate strictly to apply additional digital filters, due to it may remove some of the EMG signal. Especial NOTCH filtering should be avoided because it removes to much of the EMG signal power (signal information) (Konrad, 2005 s 13 & 29.
 The rectified RMS smoothed EMG signal without any additional filtering can be considered as a standard processing in kinesiological EMG (Konrad, 2005).
 
 - Rectification; converts all negative amplitudes to positive amplitudes. The main effect is that mean, peak, slope, area can be applied to the curve

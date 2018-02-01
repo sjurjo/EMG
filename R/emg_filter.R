@@ -46,7 +46,7 @@ par(op)
 
 ###EMG OBJECT, Cycling analysis 2018
 
-emg <- read_excel("data/VLLtest3_20cyc.xlsx") %>% 
+emg <- read_excel("data/VLLtest4_2cyc.xlsx") %>% 
   data.frame()%>%
   print()
 
@@ -66,7 +66,7 @@ is.emg(emgraw) # EMG object check                                             # 
 plot(emgraw)
 
 # High pass filter
-x <- highpass(emgraw, cutoff = 20) # 20 Hz recommended for sport activities (maybe as much as 30 Hz, avoid artifacts of the signal) Deluca, 2010.
+x <- highpass(emgraw, cutoff = 20) # 20 Hz recommended for sport activities (maybe as much as 30 Hz, avoid artefacts of the signal) Deluca, 2010.
 emghpass <- rectification(x)
 
 plot(x, main = "High pass filter")
@@ -81,7 +81,7 @@ emgrect
 
 ### Active or passive phase
 
-emgthr <- onoff_singlethres(emghpass, t = 90, data.name = "RMS") #correct
+emgthr <- onoff_singlethres(emghpass, t = 90, data.name = "RMS")
 
 plot(emghpass, main = "Sample EMG")
 plot(emgthr, type = "l", main = "Detected phases (single thresholding)")
@@ -90,7 +90,7 @@ plot(emgthr, type = "l", main = "Detected phases (single thresholding)")
 
 op <- par(mfrow = c(2, 1)) # change graphical parameters to show multiple plots
 
-emgrms <- envelope(emghpass, method = "MA", wsize = 100) # wsize; 100 ms, most common for all conditions
+emgrms <- envelope(emghpass, method = "RMS", wsize = 100) # wsize; 100 ms, most common for all conditions
 emgrms
 plot(emgrms, main = "RMS-envelope")
 

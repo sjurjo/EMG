@@ -1,0 +1,42 @@
+---
+title: "processingEMG"
+author: "Sjur Ofsteng"
+date: "31 januar 2018"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+library(readxl); library(tidyverse); library(biosignalEMG)
+
+emg <- read_excel("./data/VLLtest4_2cyc.xlsx")
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r EMG processing, include=TRUE, echo=TRUE, message=TRUE}
+# Change emg to emg object
+emg.x <- emg$VLL # 
+length(emg.x)
+
+emgraw <- as.emg(emg.x, samplingrate = 1500, units = "mV", date.name = "VLL") # sampling rate 1500Hz to avoid signal loss
+is.emg(emgraw) # EMG object check
+plot(emgraw, main = "Raw EMG signal")
+
+# High pass filter
+x <- highpass(emgraw, cutoff = 20) # 20 Hz recommended for sport activities (maybe as much as 30 Hz)
+emghpass <- rectification(x)
+
+plot(x, main = "High pass filter")
+plot(emghpass, main = "High pass filter with rectification")
+
+#EMG RMS (preferred recommendation for smoothing)
+emgrms <- envelope(emghpass, method = "RMS", wsize = 100) # wsize; 100 ms, most common for all conditions
+plot(emgrms, main = "RMS-envelope")
+
+#EMG Moving average
+emgrms <- envelope(emghpass, method = "MA", wsize = 100) # wsize; 100 ms, most common for all conditions
+plot(emgrms, main = "MA-envelope")
+```

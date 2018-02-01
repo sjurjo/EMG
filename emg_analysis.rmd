@@ -1,9 +1,11 @@
 ---
 title: "emgprocessing"
-author: "SjurÃ˜fsteng"
+author: "Sjur ofsteng"
 date: "26 januar 2018"
 output: html_document: default
 ---
+
+
 
 ```{r setup, include=FALSE}
 library(readxl); library(tidyverse); library(biosignalEMG)
@@ -64,5 +66,3 @@ avgemg
 plot(avgemg, lwd = 1.5, main = "Ensemble-averaged EMG")
 
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
