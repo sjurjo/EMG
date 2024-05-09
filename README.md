@@ -1,1 +1,1 @@
-Filter to manually adjust EMG data
+Script to manually filter EMG data
